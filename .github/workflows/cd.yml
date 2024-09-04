@@ -31,6 +31,7 @@ jobs:
       - name: Run build task
         run: pnpm run generate
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: deploy pipelines

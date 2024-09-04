@@ -10,18 +10,32 @@ on:
     branches:
       - 'master'
 jobs:
+  install:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run build task
+        run: pnpm run generate
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Strict Install dependencies
-        run: pnpm i
-      - name: Run build task
-        run: pnpm run generate
       - name: deploy pipelines
         uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         with:

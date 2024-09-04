@@ -10,7 +10,7 @@ on:
     branches:
       - 'master'
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -30,10 +30,6 @@ jobs:
         run: pnpm install
       - name: Run build task
         run: pnpm run generate
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: deploy pipelines
         uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         with:

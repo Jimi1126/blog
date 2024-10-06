@@ -12,15 +12,6 @@
           aria-label="Theme"
           @click="isDark = !isDark" />
       </UTooltip>
-      <UTooltip text="Github">
-        <UButton
-          icon="i-heroicons-face-smile"
-          color="gray"
-          variant="ghost"
-          aria-label="Theme"
-          target="_blank"
-          to="https://github.com/Jimi1126/blog" />
-      </UTooltip>
     </span>
   </header>
 </template>
